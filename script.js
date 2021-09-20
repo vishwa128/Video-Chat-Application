@@ -1,12 +1,11 @@
-// Generate random room name if needed
+// Generate random room name
 if (!location.hash) {
   location.hash = Math.floor(Math.random() * 0xFFFFFF).toString(16);
 }
 const roomHash = location.hash.substring(1);
   
-// TODO: Replace with your own channel ID
+//Name refers to channel id
 const drone = new ScaleDrone('2CgoHIvhJGEDU3wE');
-// Room name needs to be prefixed with 'observable-'
 const roomName = 'observable-' + roomHash;
 const configuration = {
   iceServers: [{
@@ -32,7 +31,7 @@ drone.on('open', error => {
       onError(error);
     }
   });
-  // We're connected to the room and received an array of 'members'
+  // connected to the room and received an array of 'members'
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
     console.log('MEMBERS', members);
@@ -53,7 +52,7 @@ function sendMessage(message) {
 function startWebRTC(isOfferer) {
   pc = new RTCPeerConnection(configuration);
   
-  // 'onicecandidate' notifies us whenever an ICE agent needs to deliver a
+ 
   // message to the other peer through the signaling server
   pc.onicecandidate = event => {
     if (event.candidate) {
